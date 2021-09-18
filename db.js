@@ -1,6 +1,6 @@
 const mongoose = require( 'mongoose' );
 
-mongoose.connect(process.env.MONGODB_URL, {useNewUrlParser: true})
+mongoose.connect('mongodb+srv://dbJkt:dbJkt@cluster0.vusuw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {useNewUrlParser: true})
 
 mongoose.connection.on('connected', function () {
   console.log('Mongoose default connection open');
