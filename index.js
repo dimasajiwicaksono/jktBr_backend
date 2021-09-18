@@ -37,9 +37,8 @@ process.on('SIGINT', function() {
 var allowedOrigins = [
   'http://localhost:3000',
   'https://38a4-180-252-161-54.ngrok.io',
-  'http://localhost:8080/',
-  'https://jktbersinar.herokuapp.com/',
-  'https://jakarta-bersinar.000webhostapp.com/'
+  'https://jktbersinar.herokuapp.com',
+  'https://jakarta-bersinar.000webhostapp.com'
 ];
 
 app.use(cors({
@@ -56,6 +55,11 @@ app.use(cors({
     return callback(null, true);
   }
 }));
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
