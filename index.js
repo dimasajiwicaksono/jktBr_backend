@@ -33,7 +33,9 @@ process.on('SIGINT', function() {
 });
 
 
-var allowedOrigins = ['http://localhost:8080',
+var allowedOrigins = [
+  'http://192.168.1.36:3000',
+  'http://localhost:3000',
   'https://jktbersinar.herokuapp.com/'];
 app.use(cors({
   origin: function (origin, callback) {
@@ -55,6 +57,7 @@ app.use(bodyParser.json());
 
 // MODELS
 const Users = require("./controllers/user");
+const Kasus = require("./controllers/kasusNarkoba");
 
 
 app.get("/", function(req, res, next) {
@@ -64,6 +67,9 @@ app.get("/", function(req, res, next) {
 
 app.post("/register", Users.register)
 app.post("/login", Users.login)
+
+app.post("/kasus_narkoba/create", Kasus.new )
+app.get("/kasus_narkoba/list", Kasus.list )
 
 const port = process.env.PORT;
 app.listen(port, () => {
