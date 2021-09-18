@@ -6,10 +6,8 @@ const cors = require("cors");
 require("dotenv").config({ path: __dirname + "/.env" });
 // const jwt = require("./jwt");
 
-
+const port = process.env.PORT || 8080;
 require("./db");
-
-
 
 
 app.use(cors());
@@ -31,15 +29,6 @@ app.get("/", function(req, res, next) {
 app.post("/register", Users.register)
 app.post("/login", Users.login)
 
-
-
-
-
-
-
-
-
-const port = 8080;
 app.listen(port, () => {
   console.log("Server is running... on port " + port);
 });
