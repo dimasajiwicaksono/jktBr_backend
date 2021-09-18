@@ -6,11 +6,14 @@ const cors = require("cors");
 require("dotenv").config({ path: __dirname + "/.env" });
 // const jwt = require("./jwt");
 
-const mongoose = require( 'mongoose' );
 
-mongoose.connect(process.env.MONGODB_URL || 'mongodb+srv://dbJkt:dbJkt@cluster0.vusuw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+const mongoose = require('mongoose');
+const connection = 'mongodb+srv://dbJkt:dbJkt@cluster0.vusuw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+mongoose.connect(connection,{ useNewUrlParser: true})
+  .then(() => console.log("Database Connected Successfully"))
+  .catch(err => console.log(err));
 
-mongoose.connection.on('connected', function () {
+mongoose.connection.on('connected', () => {
   console.log('Mongoose default connection open');
 });
 
@@ -30,7 +33,7 @@ process.on('SIGINT', function() {
 });
 
 
-var allowedOrigins = ['http://localhost:3000',
+var allowedOrigins = ['http://localhost:8080',
   'https://jktbersinar.herokuapp.com/'];
 app.use(cors({
   origin: function (origin, callback) {
