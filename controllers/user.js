@@ -23,7 +23,7 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   let doc = await Users.findOne({ username: req.body.username });
-  console.log(doc)
+  // console.log(doc)
   if (doc) {
     if (bcrypt.compareSync(req.body.password, doc.password)) {
       const payload = {
