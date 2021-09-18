@@ -1,10 +1,12 @@
 const Users = require("../models/user_schema");
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const axios = require('axios')
 
 
 exports.register = async (req, res) => {
   try {
+
       req.body.password = await bcrypt.hash(req.body.password, 8);
     await Users.create(req.body);
     res.json({
@@ -32,7 +34,10 @@ exports.login = async (req, res) => {
       };
 
       let token = jwt.sign(payload, "Scap@026056");
-      console.log(token);
+      // console.log(token);
+
+      const resRajaAPI= await axios.get("https://x.rajaapi.com/poe")
+      const {token: tokenRajaAPI} = resRajaAPI.data
       res
         .status(200)
         .json({
@@ -40,6 +45,7 @@ exports.login = async (req, res) => {
           acknowledge: 1,
           authorized: true,
           token,
+          tokenRajaAPI,
           message: "Login successfully"
       });
     } else {

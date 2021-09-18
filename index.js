@@ -43,7 +43,7 @@ var allowedOrigins = [
 
 app.use(cors({
   origin: function(origin, callback){
-    console.log(origin)
+    // console.log(origin)
     // allow requests with no origin
     // (like mobile apps or curl requests)
     if(!origin) return callback(null, true);
@@ -67,21 +67,35 @@ app.use(bodyParser.json());
 // MODELS
 const Users = require("./controllers/user");
 const Kasus = require("./controllers/kasusNarkoba");
+const Pemberdayaan = require("./controllers/pemberdayaan");
+const Pencegahan = require("./controllers/pencegahan");
 
 
 app.get("/", function(req, res, next) {
   return res.send("Hello Nodejs");
 });
 
-
+// USER
 app.post("/register",  Users.register)
 app.post("/login", Users.login)
 
+// KASUS NARKOBA
 app.post("/kasus_narkoba/create", Kasus.new )
 app.get("/kasus_narkoba/list", Kasus.list )
 
-const port = process.env.PORT;
+//PENCEGAHAN
+app.post("/pencegahan/create", Pencegahan.new )
+app.get("/pencegahan/list", Pencegahan.list )
 
+// PEMBERDAYAAN
+app.post("/pemberdayaan/create", Pemberdayaan.new )
+app.get("/pemberdayaan/list", Pemberdayaan.list )
+
+
+
+
+
+const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
   console.log("Server is running... on port " + port);
