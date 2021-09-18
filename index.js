@@ -33,24 +33,29 @@ process.on('SIGINT', function() {
 });
 
 
+
 var allowedOrigins = [
-  'http://192.168.1.36:3000',
   'http://localhost:3000',
-  'https://jktbersinar.herokuapp.com/'];
+  'https://38a4-180-252-161-54.ngrok.io',
+  'http://localhost:8080/',
+  'https://jktbersinar.herokuapp.com/',
+  'https://jakarta-bersinar.000webhostapp.com/'
+];
+
 app.use(cors({
-  origin: function (origin, callback) {
+  origin: function(origin, callback){
+    console.log(origin)
     // allow requests with no origin
     // (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
       var msg = 'The CORS policy for this site does not ' +
         'allow access from the specified Origin.';
-      return res.json({ status: 'error', msg });
+      return callback(new Error(msg), false);
     }
     return callback(null, true);
   }
 }));
-
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -65,13 +70,15 @@ app.get("/", function(req, res, next) {
 });
 
 
-app.post("/register", Users.register)
+app.post("/register",  Users.register)
 app.post("/login", Users.login)
 
 app.post("/kasus_narkoba/create", Kasus.new )
 app.get("/kasus_narkoba/list", Kasus.list )
 
 const port = process.env.PORT;
+
+
 app.listen(port, () => {
   console.log("Server is running... on port " + port);
 });
