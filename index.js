@@ -62,14 +62,18 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '1mb'}));
 
 // MODELS
 const Users = require("./controllers/user");
 const Kasus = require("./controllers/kasusNarkoba");
 const Pemberdayaan = require("./controllers/pemberdayaan");
 const Pencegahan = require("./controllers/pencegahan");
-
+const Laporan = require("./controllers/laporan");
+const Rehabilitasi = require("./controllers/rehabilitasi");
+const LMP2mUrine= require("./controllers/lm_p2m_urine");
+const LMP2mSosialisasi = require("./controllers/lm_p2m_sosialisasi");
+const LMSKPN = require("./controllers/lm_skpn");
 
 app.get("/", function(req, res, next) {
   return res.send("Hello Nodejs");
@@ -91,6 +95,26 @@ app.get("/pencegahan/list", Pencegahan.list )
 app.post("/pemberdayaan/create", Pemberdayaan.new )
 app.get("/pemberdayaan/list", Pemberdayaan.list )
 
+
+// LAPORAN
+app.post("/laporan/create", Laporan.new )
+app.get("/laporan/list", Laporan.list )
+
+// LAPORAN
+app.post("/rehabilitasi/create", Rehabilitasi.new )
+app.get("/rehabilitasi/list", Rehabilitasi.list )
+
+//LAYANAN MASYARAKAT
+app.post("/lmP2mUrine/create", LMP2mUrine.new )
+app.get("/lmP2mUrine/list", LMP2mUrine.list )
+
+// LAYANAN MASYARAKAT
+app.post("/lmP2mSosialisasi/create", LMP2mSosialisasi.new )
+app.get("/lmP2mSosialisasi/list", LMP2mSosialisasi.list )
+
+// LAYANAN MASYARAKAT
+app.post("/lmSKPN/create", LMSKPN.new )
+app.get("/lmSKPN/list", LMSKPN.list )
 
 
 
