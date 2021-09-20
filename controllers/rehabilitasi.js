@@ -1,11 +1,11 @@
-const LAPORAN = require("../models/laporan");
+const REHABILITASI = require("../models/rehabilitasi");
 
 exports.new = async (req, res) => {
   try {
-    const id = await LAPORAN.count() + 1
+    const id = await REHABILITASI.count() + 1
     const date = req.body.date.replace(/[^\w\s]/gi, '')
-    const ref_number = `LP/${date}/${`${id}`.padStart(4, '0')}`
-    await LAPORAN.create({
+    const ref_number = `RHB/${date}/${`${id}`.padStart(4, '0')}`
+    await REHABILITASI.create({
       ...req.body,
       ref_number
     });
@@ -27,7 +27,7 @@ exports.new = async (req, res) => {
 
 exports.list = async (req, res) => {
   try {
-    const data = await LAPORAN.find();
+    const data = await REHABILITASI.find();
     res.json({
       result: "success",
       acknowledge: 1,
